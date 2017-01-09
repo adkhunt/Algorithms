@@ -13,10 +13,6 @@ int data[26] = {0}; 						 //store the starting character index
 		data[temp] = i;					// build look up table for accessing the character using index
 	}
 
-	for(i = 0 ; i < 26 ; ++i)
-		printf("%d ",data[i]);
-	printf("\n");
-
 	i = 0;
 	int j = 0;
 
