@@ -47,5 +47,10 @@ int i,j=0;
 
 	sortStringArray(stringArray,26);
 
+	for(i =0 ;i < 26; ++i)
+		free(stringArray[i]);
+
+	free(stringArray);
+
 	return EXIT_SUCCESS;
 }

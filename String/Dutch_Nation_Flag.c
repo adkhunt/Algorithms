@@ -51,6 +51,7 @@ int i = 0;
 	printf("Entered String is = %s\n",str);
 	sort_string(str,i);
 	printf("Sorted String = %s\n",str);
+	free(str);
 
 	return EXIT_SUCCESS;
 }

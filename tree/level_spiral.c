@@ -67,5 +67,7 @@ char ch;
 	print_spiral_order(root);
 	printf("\n");
 
+	free(root);
+
 	return EXIT_SUCCESS;
 }
