@@ -47,7 +47,7 @@ struct node* dequeue(Queue *q)
 	}
 }
 
-struct node* fornt(Queue *q)
+struct node* front(Queue *q)
 {
 	if(q->bottom != q->top)
 	{
