@@ -1,6 +1,8 @@
 #ifndef linklist
 #define linklist
 
+#define null NULL
+
 typedef struct node{
 		int num;
 		struct node *next;
