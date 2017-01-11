@@ -1,8 +1,8 @@
 #ifndef tree
 #define tree
 
-#include"stack.h"
 #include"queue.h"
+#include"stack.h"
 
 struct node{
 		int num;
