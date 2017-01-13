@@ -4,6 +4,8 @@
 #include"queue.h"
 #include"stack.h"
 
+#define null NULL
+
 struct node{
 		int num;
 		struct node *right,*left;
