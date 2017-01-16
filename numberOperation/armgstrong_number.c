@@ -2,15 +2,22 @@
 #include<stdbool.h>
 #define EXIT_SUCCESS 0
 
+//////////////////////////////////////////
+//					//
+// Program to check if given number is  //
+// armstrong number or not		//
+//					//
+//////////////////////////////////////////
+
 bool isArmstrong(int num)
 {
 int sum = 0,temp = num,rem;
 
 	while(temp)
 	{
-		rem = temp%10;
-		sum+= (rem*rem*rem);
-		temp/=10;
+		rem = temp%10;		//take single digit from number
+		sum+= (rem*rem*rem);	//make cube of that number and add to sum
+		temp/=10;		//remove element which already counted
 	}
 
 	return sum == num ? true : false;
