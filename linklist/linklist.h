@@ -37,6 +37,23 @@ static Node *pre = NULL;
 	}
 }
 
+Node* get_list(void)
+{
+Node *root = null;
+int num;
+char ch;
+
+	do{
+		printf("Enter number to add into list.\n");
+		scanf("%d",&num);
+		addAtEnd(&root,num);
+		printf("Do you want to continue?(y/Y)\n");
+		scanf(" %c",&ch);
+	}while(ch == 'y' || ch == 'Y');
+
+	return root;
+}
+
 void addAtFront(Node **hptr,int num)
 {
 	Node *new_node = get_new_node(num);
