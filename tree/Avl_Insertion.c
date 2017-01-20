@@ -2,19 +2,25 @@
 #include<stdlib.h>
 #define null NULL
 
+///////////////////////////////////
+//				 //
+// Program to insert in avl tree //
+//				 //
+///////////////////////////////////
+
 struct node{
 		int num;
 		struct node *right;
 		struct node *left;
-		int height;
+		int height;		// store height difference at perticuler node
 };
 
-int max(int a,int b)
+int max(int a,int b)			// return max between two integers
 {
-	return (a>b) ? a : b;
+	return (a>b) ? a : b;		
 }
 
-int Height(struct node *root)
+int Height(struct node *root)		// return the height of current node
 {
 	if(root == null)
 		return 0;
@@ -22,12 +28,12 @@ int Height(struct node *root)
 	return root->height;
 }
 
-int getHeight(struct node *root)
+int getHeight(struct node *root)	// get the height difference
 {
 	return max(Height(root->left),Height(root->right))+1;
 }
 
-int getBalance(struct node *root)
+int getBalance(struct node *root)	// return the balance difference of right and left sub tree
 {
 	if(root == null)
 		return 0;
@@ -35,7 +41,7 @@ int getBalance(struct node *root)
 	return (Height(root->left)-Height(root->right));
 }
 
-struct node* rightRotate(struct node *root)
+struct node* rightRotate(struct node *root)	//this function will perform right rotation
 {
 	struct node *newRoot = root->left;
 	root->left = newRoot->right;
@@ -47,7 +53,7 @@ struct node* rightRotate(struct node *root)
 	return newRoot;
 }
 
-struct node* leftRotate(struct node *root)
+struct node* leftRotate(struct node *root)	//this function perform left rotation
 {
 	struct node *newRoot = root->right;
 	root->right = newRoot->left;
@@ -59,7 +65,7 @@ struct node* leftRotate(struct node *root)
 	return newRoot;
 }
 
-struct node* getNewNode(int num)
+struct node* getNewNode(int num)	// return the new node
 {
 	struct node *ret = (struct node*) malloc(sizeof(struct node));
 
@@ -71,7 +77,7 @@ struct node* getNewNode(int num)
 	return ret;
 }
 
-struct node* insertNode(struct node *root,int num)
+struct node* insertNode(struct node *root,int num)	//insert the node in tree
 {
 	if(root == null)
 		return (getNewNode(num));
@@ -110,7 +116,7 @@ struct node* insertNode(struct node *root,int num)
 	return root;
 }
 
-void printInorder(struct node *root)
+void printInorder(struct node *root)	//print in-order
 {
 	if(root == null)
 		return;
@@ -120,7 +126,7 @@ void printInorder(struct node *root)
 	printInorder(root->right);
 }
 
-void printPostorder(struct node *root)
+void printPostorder(struct node *root)	// print post-order
 {
 	if(root == null)
 		return;
@@ -130,7 +136,7 @@ void printPostorder(struct node *root)
 	printf("%d ",root->num);
 }
 
-void printPreorder(struct node *root)
+void printPreorder(struct node *root) 	//print pre-order
 {
 	if(root == null)
 		return;
