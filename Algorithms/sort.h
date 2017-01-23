@@ -126,7 +126,7 @@ int i,max;
 
 	max = getMax(a,size);
 
-	for(i = 1 ; (max/i) > 0 ; ++i)
+	for(i = 1 ; (max/i) > 0 ; i *= 10)
 		Sort(a,size,i);
 	
 }
