@@ -5,6 +5,6 @@
 #include<stdlib.h>
 #include"tree.h"
 
-#define null NULL
+#define exit EXIT_SUCCESS
 
 #endif

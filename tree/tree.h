@@ -59,7 +59,7 @@ void insertInTree(struct node **root)
 {
 int num;
 
-	printf("Enter number in new node.\b");
+	printf("Enter number in new node.\n");
 	scanf("%d",&num);
 
 	BuildTree(root,num);
