@@ -110,7 +110,7 @@ struct node *pre = null;
 
 int main()
 {
-struct node *root = getReadyTree();
+struct node *root = getTree();
 int num;
 
 	printInorderIterative(root);

@@ -28,7 +28,7 @@ struct node* getLCA(struct node *root,int num1,int num2)
 
 int main()
 {
-struct node *root = getReadyTree();
+struct node *root = getTree();
 int num1,num2;
 
 	printInorderIterative(root);
