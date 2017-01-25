@@ -1,68 +1,128 @@
-#include<stdio.h>
-#include<stdlib.h>
-#include"tree.h"
-#define null NULL
+#include"header.h"
 
-struct node* minRight(struct node *root)
+////////////////////////////////////////////////////
+//						  //
+// Get Inorder predecessor and successor of given //
+// Number					  //
+//						  //
+////////////////////////////////////////////////////
+
+int getMin(struct node *root)
 {
-struct node *min = root->right;
+	while(root->right)
+		root = root->right;
 
-	while(min->left)
-	{
-		min = min->left;
-	}
-
-	return min;
+	return root->num;	
 }
 
-struct node* get_successor(struct node *root,int num)
+int getMinLeft(struct node *root)
+{
+	while(root->left)
+		root = root->left;
+
+	return root->num;
+}
+
+int getSuccessor(struct node *root,int num)
 {
 	if(root == null)
-		return root;
-
-struct node *ret = root;
+		return;
 
 	if(root->num == num)
-		return minRight(root);
+	{
+		return getMinLeft(root->right);
+	}
+
+struct node *pre = null;
 
 	while(root)
 	{
 		if(root->num > num)
 		{
-			ret = root;
+			pre = root;
 			root = root->left;
 		}
 
 		else if(root->num < num)
 			root = root->right;
 
+		else break;
+	}
+
+	if(root->right)
+		return getMinLeft(root->right);
+
+	if(pre)
+		return pre->num;
+
+	else
+		printf("No such number present in tree.\n");
+		return 0;
+}
+
+int getPredecessor(struct node *root,int num)
+{
+	if(root == null)
+	{
+		printf("Root is null.\n");
+		return 0;
+	}
+
+	if(root->num == num)
+	{
+		int min = getMin(root->left);
+		return min;
+	}
+
+struct node *pre = null;
+
+	while(root)
+	{
+		if(root->num > num)
+			root = root->left;
+
+		else if(root->num < num)
+		{
+			pre = root;
+			root = root->right;
+		}
+
 		else 
 			break;
 	}
 
-	return ret;
+	if(root == null)
+	{
+		printf("No such number found.\n");
+		return 0;
+	}
+
+	if(root->left)
+		return getMin(root->left);
+
+	else if(pre)
+		return pre->num;
+
+	else
+		return root->num;
+
 }
 
 int main()
 {
-struct node *root = null;
-char ch;
-int succ;
+struct node *root = getReadyTree();
+int num;
 
-	do{
-		insertInTree(&root);
-		printf("Do you want to continue?(y/n)\n");
-		scanf(" %c",&ch);
-	}while(ch=='y' || ch == 'Y');
+	printInorderIterative(root);
+	
+	printf("Enter number to get Inorder successor and predecessor.\n");
+	scanf("%d",&num);
 
-	printInorderRecursive(root);
-	printf("\n");
+	int predecessor = getPredecessor(root,num);
+	int successor = getSuccessor(root,num);
 
-	printf("Enter the successor you want to find..\n");
-	scanf("%d",&succ);
-	struct node *successor = get_successor(root,succ);
-
-	printf("Inorder successor of %d is %d\n",succ,successor->num);
+	printf("Predecessor = %d\n",predecessor);
+	printf("Successor = %d\n",successor);
 
 	return EXIT_SUCCESS;
 }

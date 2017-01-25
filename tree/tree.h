@@ -21,12 +21,8 @@ struct node* get_new_node(int num)
 	return ret;
 }
 
-void insertInTree(struct node **root)
+void BuildTree(struct node **root,int num)
 {
-int num;
-
-	printf("Enter number in new node..\n");
-	scanf("%d",&num);
 
 	struct node *new_node = get_new_node(num);
 
@@ -59,6 +55,16 @@ int num;
 	}
 }
 
+void insertInTree(struct node **root)
+{
+int num;
+
+	printf("Enter number in new node.\b");
+	scanf("%d",&num);
+
+	BuildTree(root,num);
+}
+
 struct node* getTree()
 {
 struct node *root = null;
@@ -69,6 +75,17 @@ char ch;
 		printf("Do you want to continue?(y/Y)\n");
 		scanf(" %c",&ch);
 	}while(ch == 'y' || ch == 'Y');
+
+	return root;
+}
+
+struct node* getReadyTree(void)
+{
+struct node *root = null;
+int arr[12] = {10,7,3,1,6,4,18,15,14,25,22,28},i;
+
+	for(i = 0 ; i < 12 ; ++i)
+		BuildTree(&root,arr[i]);
 
 	return root;
 }
