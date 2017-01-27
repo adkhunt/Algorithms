@@ -4,23 +4,34 @@
 
 ///////////////////////////////////
 //				 //
-// Program to insert in avl tree //
+// Program to insert in AVL tree //
 //				 //
 ///////////////////////////////////
 
 struct node{
-		int num;
+		int num,height;		//Height will store the current height at node
 		struct node *right;
 		struct node *left;
-		int height;		// store height difference at perticuler node
 };
 
-int max(int a,int b)			// return max between two integers
+struct node* getNewNode(int num)
 {
-	return (a>b) ? a : b;		
+	struct node *ret = (struct node*)
+				malloc(sizeof(struct node));
+	ret->height = 0;
+	ret->num = num;
+	ret->right = null;
+	ret->left = null;
+
+	return ret;
 }
 
-int Height(struct node *root)		// return the height of current node
+int max(int a,int b)			// return maximum of two integer
+{
+	return a > b ? a : b;			
+}
+
+int Height(struct node *root)		// return the current height of node
 {
 	if(root == null)
 		return 0;
@@ -28,145 +39,132 @@ int Height(struct node *root)		// return the height of current node
 	return root->height;
 }
 
-int getHeight(struct node *root)	// get the height difference
-{
+int getHeight(struct node *root) 	// get height max of left or right height
+{	
 	return max(Height(root->left),Height(root->right))+1;
 }
 
-int getBalance(struct node *root)	// return the balance difference of right and left sub tree
+int balance(struct node *root)		// return difference of left and right height
 {
-	if(root == null)
-		return 0;
-
-	return (Height(root->left)-Height(root->right));
+	return Height(root->left) - Height(root->right);
 }
 
-struct node* rightRotate(struct node *root)	//this function will perform right rotation
+struct node* rotateRight(struct node *root)	// perform right rotation on node
 {
 	struct node *newRoot = root->left;
 	root->left = newRoot->right;
 	newRoot->right = root;
 
-	root->height = getHeight(root);
 	newRoot->height = getHeight(newRoot);
+	root->height = getHeight(root);
 
 	return newRoot;
 }
 
-struct node* leftRotate(struct node *root)	//this function perform left rotation
+struct node* rotateLeft(struct node *root)	// perform left rotation on sub-tree
 {
 	struct node *newRoot = root->right;
 	root->right = newRoot->left;
 	newRoot->left = root;
 
-	root->height = getHeight(root);
 	newRoot->height = getHeight(newRoot);
+	root->height = getHeight(root);
 
 	return newRoot;
 }
 
-struct node* getNewNode(int num)	// return the new node
-{
-	struct node *ret = (struct node*) malloc(sizeof(struct node));
-
-	ret->num = num;
-	ret->right = null;
-	ret->left = null;
-	ret->height = 0;
-
-	return ret;
-}
-
-struct node* insertNode(struct node *root,int num)	//insert the node in tree
+struct node* addTree(struct node *root,int num)	//this function to insert node in tree
 {
 	if(root == null)
-		return (getNewNode(num));
+		return getNewNode(num);
 
-	if(root->num > num)
-		root->left = insertNode(root->left,num);
+	else if(root->num > num)
+		root->left = addTree(root->left,num);
 
 	else if(root->num < num)
-		root->right = insertNode(root->right,num);
+		root->right = addTree(root->right,num);
 
 	else
 		return root;
 
 	root->height = getHeight(root);
 
-	int bal = getBalance(root);
+	int bal = balance(root);
 
-	if(bal > 1 && num < root->left->num)
-		return rightRotate(root);
-	
-	if(bal < -1 && num > root->right->num)
-		return leftRotate(root);
-	
-	if(bal > 1 && num > root->left->num)
+	//left left case
+	if(bal > 1 && root->left->num > num)
+		return rotateRight(root);
+
+	//Right Right case
+	else if(bal < -1 && root->right->num < num)
+		return rotateLeft(root);
+
+	//left Right case
+	else if(bal > 1 && root->left->num < num)
 	{
-		root->left = leftRotate(root->left);
-		return rightRotate(root);
+		root->left = rotateLeft(root->left);
+		return rotateRight(root);
 	}
 
-	if(bal < -1 && num < root->right->num)
+	//right left case
+	else if(bal < -1 && root->right->num > num)
 	{
-		root->right = rightRotate(root->right);
-		return leftRotate(root);
+		root->right = rotateRight(root->right);
+		return rotateLeft(root);
 	}
 
 	return root;
 }
 
-void printInorder(struct node *root)	//print in-order
+int heightTree(struct node *root)		// return height of whole tree
 {
-	if(root == null)
-		return;
+	if(root ==  null)
+		return 0;
 
-	printInorder(root->left);
-	printf("%d ",root->num);
-	printInorder(root->right);
+	int lh = heightTree(root->left) + 1;
+	int rh = heightTree(root->right) + 1;
+
+	return max(lh,rh);
 }
 
-void printPostorder(struct node *root)	// print post-order
+void print(struct node *root,int level,int cur_level)
 {
 	if(root == null)
 		return;
 
-	printPostorder(root->left);
-	printPostorder(root->right);
-	printf("%d ",root->num);
+	if(level == cur_level)
+		printf("%d ",root->num);
+
+	print(root->left,level,cur_level+1);
+	print(root->right,level,cur_level+1);
 }
 
-void printPreorder(struct node *root) 	//print pre-order
+void printLevel(struct node *root)		// print level order traversal
 {
-	if(root == null)
-		return;
+int i,height = heightTree(root);
 
-	printf("%d ",root->num);
-	printPreorder(root->left);
-	printPreorder(root->right);
+	for(i = 0 ; i < height ; ++i)
+	{
+		print(root,i,0);
+		printf("\n");
+	}
 }
 
 int main()
 {
 struct node *root = null;
+int numToInsert;
 char ch;
-int num;
 
 	do{
-		printf("Enter data in new node.\n");
-		scanf("%d",&num);
-		root = insertNode(root,num);
-		printf("Do you want to continue?(Y/y)");
+		printf("Enter number in node.\n");
+		scanf("%d",&numToInsert);
+		root = addTree(root,numToInsert);
+		printf("Do you want to continue?\n");
 		scanf(" %c",&ch);
 	}while(ch == 'y' || ch == 'Y');
 
-	printf("\n");
-	printPreorder(root);
-	printf("\n=================\n");
-	printInorder(root);
-	printf("\n=================\n");
-	printPostorder(root);
-	printf("\n");
+	printLevel(root);
 
 	return EXIT_SUCCESS;
 }
