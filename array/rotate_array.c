@@ -6,6 +6,26 @@
 //					   //
 /////////////////////////////////////////////
 
+void reverse(int *a,int start,int end)
+{
+int temp;
+
+	while(start<end)
+	{
+		temp = a[start];
+		a[start] = a[end];
+		a[end] = temp;
+		++start,--end;
+	}
+}
+
+void rotateArray2(int *a,int size,int rotation) // Reverse array in O(n) time 
+{
+	reverse(a,0,rotation-1);
+	reverse(a,rotation,size-1);
+	reverse(a,0,size-1);
+}
+
 void rotateArrayOn(int *a,int size , int rotation) // function to rotate array in O(1) extra space
 {
 int i,j,temp,k;
@@ -70,7 +90,7 @@ int size,i,rotate;
 	printf("Enter number of rotation.\n");
 	scanf("%d",&rotate);
 
-	rotateArrayOn(arr,size,rotate);
+	rotateArray2(arr,size,rotate);
 
 	printf("Rotated array : ");
 	for(i = 0 ; i <size ; ++i)
