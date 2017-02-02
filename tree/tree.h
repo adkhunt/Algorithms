@@ -157,6 +157,32 @@ void printInorderIterative(struct node *root) // Morris Traversaal
 	printf("\n");
 }
 
+void printInorderStack(struct node *root)
+{
+Stack *s = create_stack(15);
+
+	while(1)
+	{
+		if(root)
+		{
+			push(s,root);
+			root = root->left;
+		}
+
+		else
+		{
+			if(isEmpty(s))
+				break;
+
+			root = pop(s);
+			printf("%d ",root->num);
+			root = root->right;
+		}
+	}
+
+	printf("\n");
+}
+
 void printPreorderIterative(struct node *root)
 {
 	if(root == NULL)
