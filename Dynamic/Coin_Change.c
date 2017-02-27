@@ -25,7 +25,7 @@ int i,temp[total+1],j;
 
 	for(i = 0 ; i < size ; ++i)
 	{
-		for(j = i ; j <= total ; ++j)
+		for(j = coin_array[i] ; j <= total ; ++j)
 		{
 			if(coin_array[i] <= j)
 			{
@@ -39,7 +39,7 @@ int i,temp[total+1],j;
 
 int main()
 {
-int coin_array[] = {7,2,3,6};
+int coin_array[] = {1,2,5,10};
 int total;
 
 	printf("Enter total sum to get required coin.\n");
