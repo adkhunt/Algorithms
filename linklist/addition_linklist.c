@@ -114,11 +114,5 @@ int i = 0;
 
 	print_list(result);	//printing the linklist
 
-	free(num1);
-	free(num2);
-	free(link1);
-	free(link2);
-	free(result);
-
 	return EXIT_SUCCESS;
 }
