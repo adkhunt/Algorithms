@@ -67,13 +67,13 @@ int ret = 0;
 		system("clear");		// Clear the command prompt
 		ch = getchar();			// Get the entered character
 
-		if(ch == BACKSPACE)
+		if(ch == BACKSPACE && index > 0)
 		{
 			hptr = remove_from_list(hptr);
 			--index;
 		}
 
-		else
+		else if(ch != BACKSPACE)
 		{
 			buff[index++] = ch;
 			buff[index] = '\0';
@@ -83,6 +83,8 @@ int ret = 0;
 			if(hptr == NULL || root == NULL)
 				printf("No such word exist in file.\n");
 		}
+		
+		if(hptr != NULL && index > 0)
 			print_word(hptr->ptr,buff,index);		// Print all possible word with prefix match
 	}
 }
