@@ -79,6 +79,9 @@ void print_word( node *root ,char *str,int level)
 {
 int i; 
 
+	if(root == NULL)
+		return;
+
 	for( i = 0; i < 230 ; i++)
 	{
 		if( root->ptr[i] != NULL){

@@ -2,8 +2,11 @@
 #include<stdlib.h>
 #include<stdbool.h>
 #include"keyboard.h"
+#include"linklist.h"
 #include"trie.h"
 #include"file.h"
+
+#define BACKSPACE 127
 
 /* This program is to auto complete suggestion
  * like when you type any character
@@ -49,6 +52,7 @@ struct node* search_possible(struct node *root,char ch)
 void init_autocomplete(struct node *root)
 {
 char buff[50] = {'\0'};
+d_list *hptr = get_list_node(root);
 int index = 0;
 char ch;
 int ret = 0;
@@ -63,21 +67,23 @@ int ret = 0;
 		system("clear");		// Clear the command prompt
 		ch = getchar();			// Get the entered character
 
-		if(ch == 127)		
+		if(ch == BACKSPACE)
 		{
+			hptr = remove_from_list(hptr);
 			--index;
-			continue;
 		}
 
-		buff[index++] = ch;
-		buff[index] = '\0';
-
-		root = search_possible(root,buff[index-1]);
-		if(root != NULL)
-			print_word(root,buff,index);		// Print all possible word with prefix match
-
 		else
-			printf("No such word exist in file.\n");
+		{
+			buff[index++] = ch;
+			buff[index] = '\0';
+
+			root = search_possible(hptr->ptr,buff[index-1]);
+			hptr = add_to_list(hptr,root);
+			if(hptr == NULL || root == NULL)
+				printf("No such word exist in file.\n");
+		}
+			print_word(hptr->ptr,buff,index);		// Print all possible word with prefix match
 	}
 }
 

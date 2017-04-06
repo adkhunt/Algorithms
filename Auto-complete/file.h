@@ -10,6 +10,35 @@
  * pointing to the whole trie structure
  */
 
+/*
+ * This function will remove the special character 
+ * from the word and insert into the trie structure
+ */
+
+void remove_special_chars(char *str,struct node **root)
+{
+char temp_buff[50];
+int i,index = 0;
+
+	for(i = 0 ; str[i] ; ++i)
+	{
+		if(str[i] >= 'a' && str[i] <= 'z')
+			temp_buff[index++] = str[i];
+
+		else if(str[i] >= 'A' && str[i] <= 'Z')
+			temp_buff[index++] = str[i]+32;
+	}
+
+	temp_buff[index] = '\0';
+
+	insert_word(root,temp_buff);
+}
+
+/*
+ * Read the file which name is passed as a
+ * function parameter and scan word by word 
+ */
+
 struct node* read_file(char *file_name)
 {
 FILE *fp = NULL;
@@ -26,7 +55,7 @@ char str[50];
 	}
 
 	while(fscanf(fp,"%s",str) != EOF)
-		insert_word(&root,str);
+		remove_special_chars(str,&root);
 
 	return root;
 }
