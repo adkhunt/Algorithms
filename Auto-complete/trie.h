@@ -19,7 +19,7 @@
  */
 
 typedef struct node{
-			struct node *ptr[230];
+			struct node *ptr[26];
 			bool eow;
 			int count;
 } node;
@@ -37,7 +37,7 @@ int i;
 
 	node *temp = (node*) malloc(sizeof(node));
 	
-	for(i = 0 ; i < 230 ; ++i)
+	for(i = 0 ; i < 26 ; ++i)
 		temp->ptr[i] = null;
 
 	temp->eow = false;
@@ -59,7 +59,7 @@ int index;
 
 	for(i = 0 ; str[i] ; ++i)
 	{
-		index = (str[i] >= 'A' && str[i] <= 'Z') ? str[i]+32 : str[i];
+		index = str[i] - 'a';
 
 		if(temp->ptr[index] == null)
 			temp->ptr[index] = get_new_node();
@@ -82,10 +82,10 @@ int i;
 	if(root == NULL)
 		return;
 
-	for( i = 0; i < 230 ; i++)
+	for( i = 0; i < 26 ; i++)
 	{
 		if( root->ptr[i] != NULL){
-			str[level] = (char) i;
+			str[level] = (char) i + 'a';
 			print_word(root->ptr[i],str,level+1);
 		}
 
@@ -110,7 +110,7 @@ int i;
 
 	for(i = 0 ; str[i] ; ++i)
 	{
-		if(data->ptr[str[i]] == null)
+		if(data->ptr[str[i] - 'a'] == null)
 			return false;
 
 		data = data->ptr[str[i]];

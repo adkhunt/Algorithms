@@ -21,7 +21,7 @@
 
 int char_to_int(char ch)
 {
-	return (int) ch;
+	return (int) ch-'a';
 }
 
 /*
