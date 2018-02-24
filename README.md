@@ -10,4 +10,4 @@ How To Use:
 		4) compile any program using GCC compiler
 		5) Run executalbe file on your system 
 
-NOTE : All programs are tested in Linux(Ubuntu 14.04) Platform
+NOTE : All programs are tested in Linux(Ubuntu 14.04) Platform 64-bit
