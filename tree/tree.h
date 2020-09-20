@@ -6,14 +6,14 @@
 
 #define null NULL
 
-struct node{
+typedef struct node{
 		int num;
 		struct node *right,*left;
-};
+} node;
 
-struct node* get_new_node(int num)
+node* get_new_node(int num)
 {
-	struct node *ret = (struct node*) malloc(sizeof(struct node));
+	node *ret = (node*) malloc(sizeof(node));
 
 	ret->num = num;
 	ret->right = ret->left = NULL;
@@ -21,15 +21,15 @@ struct node* get_new_node(int num)
 	return ret;
 }
 
-void BuildTree(struct node **root,int num)
+void BuildTree(node **root,int num)
 {
 
-	struct node *new_node = get_new_node(num);
+	node *new_node = get_new_node(num);
 
 	if(*root)
 	{
-		struct node *cur = *root;
-		struct node *pre = cur;
+		node *cur = *root;
+		node *pre = cur;
 
 		while(cur)
 		{
@@ -55,7 +55,7 @@ void BuildTree(struct node **root,int num)
 	}
 }
 
-void insertInTree(struct node **root)
+void insertInTree(node **root)
 {
 int num;
 
@@ -65,9 +65,9 @@ int num;
 	BuildTree(root,num);
 }
 
-struct node* getTree()
+node* getTree()
 {
-struct node *root = null;
+node *root = null;
 char ch;
 
 	do{
@@ -79,10 +79,10 @@ char ch;
 	return root;
 }
 
-struct node* getReadyTree(void)
+node* getReadyTree(void)
 {
-struct node *root = null;
-int arr[12] = {10,7,3,1,6,4,18,15,14,25,22,28},i;
+node *root = null;
+int arr[12] = {10,7,3,1,6,4,18,15,14,25,22,28}, i;
 
 	for(i = 0 ; i < 12 ; ++i)
 		BuildTree(&root,arr[i]);
@@ -90,7 +90,7 @@ int arr[12] = {10,7,3,1,6,4,18,15,14,25,22,28},i;
 	return root;
 }
 
-void printInorderRecursive(struct node *root)
+void printInorderRecursive(node *root)
 {
 	if(root)
 	{
@@ -100,7 +100,7 @@ void printInorderRecursive(struct node *root)
 	}
 }
 
-void printPostorderRecursive(struct node *root)
+void printPostorderRecursive(node *root)
 {
 	if(root)
 	{
@@ -110,7 +110,7 @@ void printPostorderRecursive(struct node *root)
 	}
 }
 
-void printPreorderRecursive(struct node *root)
+void printPreorderRecursive(node *root)
 {
 	if(root)
 	{
@@ -120,7 +120,7 @@ void printPreorderRecursive(struct node *root)
 	}
 }
 
-void printInorderIterative(struct node *root) // Morris Traversaal
+void printInorderIterative(node *root) // Morris Traversaal
 {
 	if(root == NULL)
 		return;		//Base Case
@@ -134,7 +134,7 @@ void printInorderIterative(struct node *root) // Morris Traversaal
 		}
 
 		else{
-			struct node *pre = root->left;
+			node *pre = root->left;
 
 			while(pre->right != NULL && pre->right != root)
 				pre = pre->right;
@@ -157,7 +157,7 @@ void printInorderIterative(struct node *root) // Morris Traversaal
 	printf("\n");
 }
 
-void printInorderStack(struct node *root)
+void printInorderStack(node *root)
 {
 Stack *s = create_stack(15);
 
@@ -183,7 +183,7 @@ Stack *s = create_stack(15);
 	printf("\n");
 }
 
-void printPreorderIterative(struct node *root)
+void printPreorderIterative(node *root)
 {
 	if(root == NULL)
 		return;
@@ -207,7 +207,7 @@ Stack *s = create_stack(20);		//assume that tree element size is les than 20 // 
 	printf("\n");
 }
 
-void printPostorderIterative(struct node *root)
+void printPostorderIterative(node *root)
 {
 
 	if(root == NULL)

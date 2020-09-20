@@ -2,6 +2,7 @@
 #define queue
 
 #include<stdbool.h>
+#include<stdlib.h>
 
 typedef struct Queue{
 			int top,bottom,limit;
